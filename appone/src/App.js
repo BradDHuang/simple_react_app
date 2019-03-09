@@ -3,18 +3,21 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from "axios";
 import CateClicked from "./CateClicked";
+import { connect } from "react-redux";
+import { fetchList } from "./actions";
 
 class App extends Component {
   
   state = { cateList: [], err: null, cateItems: null, title: "" };
   
   componentDidMount() {
-    axios.get("https://stream-restaurant-menu-svc.herokuapp.com/category")
-      .then(res => {
-        // console.log(res);
-        this.setState({ cateList: res.data });
-      })
-      .catch(err => this.setState({ err }));
+    // axios.get("https://stream-restaurant-menu-svc.herokuapp.com/category")
+    //   .then(res => {
+    //     // console.log(res);
+    //     this.setState({ cateList: res.data });
+    //   })
+    //   .catch(err => this.setState({ err }));
+    this.props.fetchList();
   }
   
   onCateClick = (cate_short_name) => {
@@ -33,7 +36,7 @@ class App extends Component {
         <h4>Menu Categories</h4>
         <div className="cate_list">
         <ul>
-          {this.state.cateList.map(({name, short_name}) => {
+          {this.props.list.cateList.map(({name, short_name}) => {
             return (
               <li className="cate_row" key={name} onClick={() => this.onCateClick(short_name)}>
                 {`${name} - (${short_name})`}
@@ -49,5 +52,12 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+    return { list: state.list };
+};
+
+export default connect(
+  mapStateToProps, 
+  { fetchList }
+)(App);
 
