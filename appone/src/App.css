@@ -7,6 +7,9 @@
   width: 30%;
   margin-right: 5%;
 }
+.cates {
+  list-style-type: none;
+}
 
 .cate_row {
   border: 0.5px solid lightgreen;

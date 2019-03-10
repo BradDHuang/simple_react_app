@@ -38,3 +38,4 @@ class CateClicked extends Component {
 }
 
 export default CateClicked;
+
